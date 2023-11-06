@@ -31,4 +31,20 @@ app.post('/', async (req, res) => {
     console.log('addedItem ->', addedItem)
     res.send(allPosts)
 })
+
+//sign up
+app.post('/signup', async(req, res) => {
+    const userAdded = await usersDb.insertOne({email: req.body.email, password: req.body.password})
+    console.log('user added -> ', userAdded)
+    res.send(userAdded)
+})
+
+//log in 
+
+app.post('/login',async (req ,res) => {
+    console.log(req.body)
+    const userFound = await usersDb.findOne({ email: req.body.email })
+
+    res.send(userFound)
+})
 app.listen('8080', () => console.log('Api listening on port 8080 😎'))
